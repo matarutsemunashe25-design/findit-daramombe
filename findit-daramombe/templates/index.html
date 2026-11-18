@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Lost something? Let's find it.</h1>
+  <p>Report a lost item in under a minute. Staff register what gets handed in,
+     and FindIt suggests matches automatically.</p>
+  <a class="btn big" href="{{ url_for('report_lost') }}">Report a lost item</a>
+  <a class="btn ghost big" href="{{ url_for('track_lookup') }}">Check my report</a>
+</section>
+<section class="stats">
+  <div class="stat"><b>{{ stats.lost }}</b><span>Items still lost</span></div>
+  <div class="stat"><b>{{ stats.found }}</b><span>Found, waiting for owners</span></div>
+  <div class="stat"><b>{{ stats.returned }}</b><span>Returned to owners 🎉</span></div>
+</section>
+<section class="steps">
+  <div><h3>1. Report</h3><p>Pick the category, colour, place and date.</p></div>
+  <div><h3>2. We match</h3><p>Found items are compared with lost reports.</p></div>
+  <div><h3>3. Collect</h3><p>Show your reference code to staff to get it back.</p></div>
+</section>
+{% endblock %}

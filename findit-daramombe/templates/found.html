@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% from "_fields.html" import fields %}
+{% block content %}
+<h1>Register a found item</h1>
+<form method="post" class="card form">
+  {{ fields(form) }}
+  <label>Where it is kept (optional)
+    <input name="contact" value="{{ form.get('contact', '') }}" placeholder="e.g. Reception shelf 2">
+  </label>
+  <button class="btn">Register item</button>
+</form>
+{% endblock %}

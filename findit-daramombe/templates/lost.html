@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "_fields.html" import fields %}
+{% block content %}
+<h1>I lost something</h1>
+<form method="post" class="card form">
+  {{ fields(form) }}
+  <label>Your name and class
+    <input name="contact" value="{{ form.get('contact', '') }}" placeholder="e.g. Aisha, S3B" required>
+  </label>
+  <p class="hint">Your name is never shown to other students.</p>
+  <button class="btn">Submit report</button>
+</form>
+{% endblock %}

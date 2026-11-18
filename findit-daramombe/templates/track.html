@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your report <span class="code">{{ item.code }}</span></h1>
+<div class="card">
+  <p><b>{{ item.colour }} {{ item.category }}</b> · {{ item.location }} · {{ item.event_date }}</p>
+  {% if item.description %}<p class="hint">{{ item.description }}</p>{% endif %}
+  <p>Status:
+    {% if item.status == 'returned' %}<span class="pill strong">Returned 🎉</span>
+    {% else %}<span class="pill">Still looking</span>{% endif %}
+  </p>
+</div>
+
+{% if item.status == 'open' %}
+<h2>Possible matches</h2>
+{% if matches %}
+  {% for m in matches %}
+  <div class="card match">
+    <div>
+      <span class="pill {{ 'strong' if m.score >= 80 else 'likely' if m.score >= 65 else '' }}">{{ m.label }}</span>
+      <b>{{ m.item.colour }} {{ m.item.category }}</b>
+      <div class="hint">Found at {{ m.item.location }} on {{ m.item.event_date }}</div>
+    </div>
+    <div class="score">{{ m.score }}%</div>
+  </div>
+  {% endfor %}
+  <p class="hint">Bring your reference code <b>{{ item.code }}</b> to reception so staff can confirm it is yours.</p>
+{% else %}
+  <p class="hint">Nothing matches yet. Check back soon — new found items are compared automatically.</p>
+{% endif %}
+{% endif %}
+{% endblock %}

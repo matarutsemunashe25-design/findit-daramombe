@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <h1>Staff dashboard</h1>
+  <div>
+    <a class="btn" href="{{ url_for('register_found') }}">+ Register found item</a>
+    <form method="post" action="{{ url_for('reset_demo') }}" class="inline"
+          onsubmit="return confirm('Delete ALL items and load demo data?')">
+      <button class="btn ghost">Reset demo</button>
+    </form>
+  </div>
+</div>
+
+<div class="cols">
+  <section>
+    <h2>Lost reports ({{ lost_m|length }})</h2>
+    {% for i, ms in lost_m %}
+    <div class="card">
+      <b>{{ i.colour }} {{ i.category }}</b> <span class="code">{{ i.code }}</span>
+      <div class="hint">{{ i.location }} · {{ i.event_date }} · {{ i.contact }}</div>
+      {% for m in ms %}
+      <div class="match small">
+        <span class="pill {{ 'strong' if m.score >= 80 else 'likely' if m.score >= 65 else '' }}">{{ m.label }} {{ m.score }}%</span>
+        {{ m.item.colour }} {{ m.item.category }} ({{ m.item.code }}, {{ m.item.location }})
+        <form method="post" action="{{ url_for('resolve') }}" class="inline">
+          <input type="hidden" name="lost_id" value="{{ i.id }}">
+          <input type="hidden" name="found_id" value="{{ m.item.id }}">
+          <button class="btn small">Mark returned</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}<p class="hint">No open lost reports.</p>{% endfor %}
+  </section>
+
+  <section>
+    <h2>Found items ({{ found_m|length }})</h2>
+    {% for i, ms in found_m %}
+    <div class="card">
+      <b>{{ i.colour }} {{ i.category }}</b> <span class="code">{{ i.code }}</span>
+      <div class="hint">{{ i.location }} · {{ i.event_date }}{% if i.contact %} · kept: {{ i.contact }}{% endif %}</div>
+      <div class="hint">{{ ms|length }} possible matching lost report(s)</div>
+    </div>
+    {% else %}<p class="hint">No open found items.</p>{% endfor %}
+  </section>
+</div>
+{% endblock %}

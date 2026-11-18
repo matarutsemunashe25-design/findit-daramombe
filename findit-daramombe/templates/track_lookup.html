@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Check my report</h1>
+<form method="post" class="card form">
+  <label>Reference code
+    <input name="code" placeholder="L-1A2B3C" required>
+  </label>
+  <button class="btn">Look up</button>
+</form>
+{% endblock %}

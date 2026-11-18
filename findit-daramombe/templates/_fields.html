@@ -1,0 +1,26 @@
+{% macro fields(form) %}
+  <label>Category
+    <select name="category" required>
+      <option value="">Choose…</option>
+      {% for c in categories %}<option {{ 'selected' if form.get('category') == c }}>{{ c }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Main colour
+    <select name="colour" required>
+      <option value="">Choose…</option>
+      {% for c in colours %}<option {{ 'selected' if form.get('colour') == c }}>{{ c }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Location
+    <select name="location" required>
+      <option value="">Choose…</option>
+      {% for c in locations %}<option {{ 'selected' if form.get('location') == c }}>{{ c }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Date
+    <input type="date" name="event_date" max="{{ today }}" value="{{ form.get('event_date') or today }}" required>
+  </label>
+  <label>Description (optional)
+    <textarea name="description" rows="3" placeholder="Brand, stickers, name written on it…">{{ form.get('description', '') }}</textarea>
+  </label>
+{% endmacro %}
